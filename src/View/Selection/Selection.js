@@ -44,7 +44,7 @@ const Selection = ({
     padding: allselectsx?.padding,
     fontSize: allselectsx?.fontSize || "16px",
     fontWeight: allselectsx?.fontWeight || 600,
-    backgroundColor: allselectsx?.backgroundColor || "#00000",
+    backgroundColor: allselectsx?.backgroundColor || "",
     border: allselectsx?.border || "0px solid #ccc",
     borderRadius: allselectsx?.borderRadius || "4px",
     // Additional custom styles
@@ -52,6 +52,7 @@ const Selection = ({
     boxShadow: allselectsx?.boxShadow || "0 2px 4px rgba(0, 0, 0, 0.1)", // Adds a box shadow for a subtle elevation effect boxShadow:allselectsx?.boxShadow || "0 2px 4px rgba(0, 0, 0, 0.1)", // Adds a box shadow for a subtle elevation effect
     transition: allselectsx?.transition || "background-color 0.3s, color 0.3s", // Adds a smooth transition for color and background changes
     cursor: allselectsx?.cursor || "pointer", // Sets the cursor to a pointer on hover
+   
     "&:hover": {
       backgroundColor: allselectsx?.backgroundColor || "#e0e0e0", // Custom background color on hover
       color: allselectsx?.color || "#333", // Custom text color on hover
@@ -59,7 +60,7 @@ const Selection = ({
     "&:focus": {
       backgroundColor: allselectsx?.backgroundColor || "#fff", // Custom background color when focused
       color: allselectsx?.color || "#000", // Custom text color when focused
-      borderColor: allselectsx?.borderColor || "#000", // Custom border color when focused
+      borderColor: allselectsx?.borderColor || "", // Custom border color when focused
     },
     "&:disabled": {
       opacity: allselectsx?.opacity || 0.6, // Reduced opacity for disabled state
@@ -91,9 +92,9 @@ const Selection = ({
       color: labelName
         ? selectedValue || (multiple ? "inherit" : "transparent")
         : "inherit",
-        backgroundColor: selectedValue ? "#f0f0f0" : "transparent",
+        backgroundColor: selectedValue ? "" : "transparent",
+        outline:"none",
 
-      outline:"none"
     },
     "& .MuiSelect-icon": {
       color:  selectsx?.dropdowniconcolor || "red", // Custom color for the select arrow icon
@@ -179,9 +180,10 @@ const Selection = ({
             fontSize: selectsx?.fontSize || "16px",
             fontWeight: selectsx?.fontWeight || 600,
             
-
+            outline : "none", // Change label border color when focused
             "&.Mui-focused": {
               color: "blue", // Change label color when focused
+
             },
           }}
         >

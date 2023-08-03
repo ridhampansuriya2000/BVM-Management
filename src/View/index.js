@@ -46,7 +46,6 @@ function View() {
       />
 
       <Selection
-        
         variant="standard"
         allselectsx={{ margin: "0px 20px" }}
         selectsx={{ width: "200px" }}
@@ -64,7 +63,7 @@ function View() {
 sx={{boxShadow: "0"}}
 allselectsx={{borderRadius:"500px",outline:"none"}}
       selectsx = {{backgroundColor:"#F2F5FF" ,dropdowniconcolor:"black" ,color:"#808297",boxShadow:"none !important" ,borderRadius:"500px",border:"none"}}
-      optionsx = {{backgroundColor:"#F2F5FF" ,dropdowniconcolor:"black" ,color:"#808297",boxShadow:"none !important" ,borderRadius:"500px",border:"none"}}
+      optionsx = {{border:"red",dropdowniconcolor:"black" ,color:"#808297",boxShadow:"none !important" ,border:"none"}}
       options={[
         { value: "", Text: "None" },
         { value: "Age1", Text: "Age1" },
