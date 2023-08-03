@@ -15,6 +15,7 @@ input[type=number] {
 .eyebtn{
     position: absolute;
     top: 50%;
+    transform: translateY(-50%);
     right: 16px;
     font-size: 20px;
     cursor: pointer;

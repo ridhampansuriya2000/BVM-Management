@@ -1,31 +1,31 @@
 import React, {useState} from "react";
 import TextFields from "./TextFields/TextFields";
 
-function View() {
+import {Grid} from '@mui/material';
+
+function View(){
 
     const [data, setdata] = useState('');
 
     const validateData = (getdata) => {
         setdata(getdata);
 
-        if(getdata === 'Ronak'){
-            return {
-                isValidate: true,
-                invalidMessage: '',
-            }
-        }else{
-            return {
-                isValidate: false,
-                invalidMessage: 'Wrong Name',
-            }
+        return {
+            isValidate: true,
+            invalidMessage: '',
         }
     };
 
     return(
         <>
-            <TextFields type={''} label={''} variant={''} placeholder={''} width={''} autocomplete={''} value={data} validateData={validateData} />
+            <Grid container>
+                <Grid xs={3}>
+                    <span>Email*</span><br/>
+                    <TextFields type={''} label={''} variant={''} placeholder={''} width={''} autocomplete={''} value={data} validateData={validateData} />
+                </Grid>
+            </Grid>
         </>
-    )
+    );
 }
 
 export default View;

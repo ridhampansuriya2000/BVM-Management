@@ -77,8 +77,7 @@ function TextFields({type,label,variant,placeholder,width,autocomplete,value,val
     };
 
     return(
-        <div className={`${style.textbox}`} style={{width: width ? width : '40%'}}>
-            <span>Email*</span><br/>
+        <div className={`${style.textbox}`} style={{width: width ? width : '100%'}}>
             <CustomTextField id="outlined-basic"
                              type={type === 'password' ? (showPassword ? "text" : "password") : type}
                              label={label}
