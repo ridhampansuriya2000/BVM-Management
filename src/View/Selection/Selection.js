@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import styled from "@emotion/styled";
+
 const Selection = ({
   labelName,
   variant,
@@ -21,29 +22,23 @@ const Selection = ({
   const [selectedValue, setSelectedValue] = useState("");
   const [multipleselectedValue, setMultipleSelectedValue] = useState([]);
 
+
+
   const handleChange = (event) => {
     if (multiple) {
       // Handle multiple select
       const { value } = event.target;
-      if (multipleselectedValue.includes(value)) {
-        setMultipleSelectedValue(
-          multipleselectedValue.filter((e) => e !== value)
-        );
-      } else {
-        if (value) {
-          setMultipleSelectedValue((prevState) => [...prevState, value]);
-        }
-      }
+      console.log("MultipleSelectedValue", multipleselectedValue);
 
-      // You can perform any other actions with the selected values here
+      setMultipleSelectedValue(value.filter((e) => e !== ""));
     } else {
       // Handle single select
       setSelectedValue(event.target.value);
       // You can perform any other actions with the selected value here
-      console.log("Selected value:", event.target.value);
     }
   };
-  console.log(multipleselectedValue.toString());
+
+  
   const CustomFormControlField = styled(FormControl)(({ theme }) => ({
     width: allselectsx?.width || "200px",
     color: allselectsx?.color || "black",
@@ -88,13 +83,10 @@ const Selection = ({
     },
     "& .MuiSelect-select": {
       // If value is empty, hide the selected value in the box
-      color: selectedValue
-        ? "inherit"
-        : label && labelName
-        ? "transparent"
-        : "inherit",
+      color: selectedValue || multipleselectedValue ? "inherit" : "transparent",
       // display: "none",
     },
+    
     width: selectsx?.width || "200px",
     color: selectsx?.color || "black",
     outline: "none",
@@ -111,7 +103,7 @@ const Selection = ({
     transition: selectsx?.transition || "background-color 0.3s, color 0.3s", // Adds a smooth transition for color and background changes
     cursor: selectsx?.cursor || "pointer", // Sets the cursor to a pointer on hover
     "&:hover": {
-      backgroundColor: selectsx?.backgroundColor || "#e0e0e0", // Custom background color on hover
+      backgroundColor: selectsx?.backgroundColor || "#e00e0", // Custom background color on hover
       color: selectsx?.color || "#333", // Custom text color on hover
     },
     "&:focus": {
@@ -163,7 +155,6 @@ const Selection = ({
       borderColor: optionsx?.borderColor || "red", // Custom border color when in error state
     },
   }));
-
   return (
     <CustomFormControlField variant={variant || "outlined"}>
       {!withoutlined && (
@@ -193,12 +184,13 @@ const Selection = ({
         defaultValue={defaultValue ? props.defaultValue : ""} // Default value for the select
         autoFocus={props.autoFocus} // Set to true to focus the select on render
         onChange={onChange || handleChange} // Function to handle value change
-        value={multiple ? (multipleselectedValue.toString()) : selectedValue} // Control the selected value using state (if using as a controlled component)
+        value={multiple ? multipleselectedValue : selectedValue} // Control the selected value using state (if using as a controlled component)
         onBlur={onBlur} // Function to handle blur event
         onFocus={onFocus} // Function to handle focus event
-        multiple={props.multiple} // Set to true for multiple select
+        multiple={multiple} // Set to true for multiple select
         autoWidth={props.autoWidth} // Set to true to auto-adjust the width of the menu to match the select width
         disableUnderline={props.disableUnderline} // Set to true to disable the underline
+     
       >
         {options.map((option, i) => (
           <CustomMenuItemField

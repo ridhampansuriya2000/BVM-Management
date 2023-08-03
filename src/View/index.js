@@ -21,9 +21,7 @@ function View() {
       />
 
       <Selection
-       variant="standard"
-       label="Ageg"
-       labelName="hari"
+      
         options={[
           { value: "", Text: "None" },
           { value: "Age1", Text: "Age1" },
