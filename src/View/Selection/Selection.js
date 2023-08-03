@@ -39,7 +39,7 @@ const Selection = ({
   const CustomFormControlField = styled(FormControl)(({ theme }) => ({
     width: allselectsx?.width || "200px",
     color: allselectsx?.color || "black",
-    outline: "none",
+    outline: allselectsx?.outline || "none",
     margin: allselectsx?.margin,
     padding: allselectsx?.padding,
     fontSize: allselectsx?.fontSize || "16px",
@@ -71,9 +71,7 @@ const Selection = ({
     },
   }));
   const CustomSelectField = styled(Select)(({ theme }) => ({
-    "& .MuiInputLabel-root": {
-      color: "red",
-    },
+   
 
     "&..Mui-disabled": {
       display: "none",
@@ -87,7 +85,23 @@ const Selection = ({
         : "inherit",
       // display: "none",
     },
+    
+    "& .MuiSelect-select": {
+      // If value is empty, hide the selected value in the box
+      color: labelName
+        ? selectedValue || (multiple ? "inherit" : "transparent")
+        : "inherit",
+        backgroundColor: selectedValue ? "#f0f0f0" : "transparent",
 
+      outline:"none"
+    },
+    "& .MuiSelect-icon": {
+      color:  selectsx?.dropdowniconcolor || "red", // Custom color for the select arrow icon
+    },
+    "& .MuiSelect-outlined": {
+      // Custom style for the outlined variant
+      borderColor: selectsx?.borderColor || "#000",
+    },
     width: selectsx?.width || "200px",
     color: selectsx?.color || "black",
     outline: "none",
@@ -164,10 +178,10 @@ const Selection = ({
           sx={{
             fontSize: selectsx?.fontSize || "16px",
             fontWeight: selectsx?.fontWeight || 600,
-            color: "red",
+            
 
             "&.Mui-focused": {
-              color: "red", // Change label color when focused
+              color: "blue", // Change label color when focused
             },
           }}
         >
@@ -191,6 +205,7 @@ const Selection = ({
         multiple={multiple} // Set to true for multiple select
         autoWidth={props.autoWidth} // Set to true to auto-adjust the width of the menu to match the select width
         disableUnderline={props.disableUnderline} // Set to true to disable the underline
+        sx={props.sx}
       >
         {options.map((option, i) => (
           <CustomMenuItemField
