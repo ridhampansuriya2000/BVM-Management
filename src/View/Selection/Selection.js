@@ -83,7 +83,7 @@ const Selection = ({
     },
     "& .MuiSelect-select": {
       // If value is empty, hide the selected value in the box
-      color: selectedValue || multipleselectedValue ? "inherit" : "transparent",
+      color: labelName  ?  selectedValue?"inherit":"transparent" : "inherit",
       // display: "none",
     },
     
@@ -176,7 +176,7 @@ const Selection = ({
       <CustomSelectField
         labelId={labelName}
         id="demo-simple-select"
-        label={label} // Set the default label to "none"
+        label={labelName} // Set the default label to "none"
         inputProps={{
           "aria-label": withoutlined ? "Without label" : "With label",
         }}
