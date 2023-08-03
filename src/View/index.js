@@ -1,9 +1,41 @@
-import React from "react";
+import React, {useState} from "react";
+import TextFields from "./TextFields/TextFields";
 
-function View() {
+import {Grid, Container} from '@mui/material';
+
+function View(){
+
+    const [data, setdata] = useState('');
+
+    const validateData = (getdata) => {
+        setdata(getdata);
+
+        return {
+            isValidate: true,
+            invalidMessage: '',
+        }
+    };
+
     return(
-        <>View Component</>
-    )
+        <>
+            <Container sx={{mt: 5}}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={6} md={4}>
+                        <span>Email*</span><br/>
+                        <TextFields type={''} label={''} variant={''} placeholder={''} width={''} autocomplete={''} value={data} validateData={validateData} />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4}>
+                        <span>Email*</span><br/>
+                        <TextFields type={''} label={''} variant={''} placeholder={''} width={''} autocomplete={''} value={data} validateData={validateData} />
+                    </Grid>
+                    <Grid item xs={12} sm={6} md={4}>
+                        <span>Email*</span><br/>
+                        <TextFields type={''} label={''} variant={''} placeholder={''} width={''} autocomplete={''} value={data} validateData={validateData} />
+                    </Grid>
+                </Grid>
+            </Container>
+        </>
+    );
 }
 
 export default View;
