@@ -8,7 +8,7 @@ function View() {
         // variant : [outlined,filled,standard]
         // variant="standard"
         native
-        // multiple
+        multiple
         labelName="ram"
         allselectsx={{ margin: "0px 20px" }}
         selectsx={{ width: "200px" }}
@@ -29,6 +29,7 @@ function View() {
       />
 
       <Selection
+        multiple
         variant="filled"
         labelName="zsd"
         options={[

@@ -22,8 +22,6 @@ const Selection = ({
   const [selectedValue, setSelectedValue] = useState("");
   const [multipleselectedValue, setMultipleSelectedValue] = useState([]);
 
-
-
   const handleChange = (event) => {
     if (multiple) {
       // Handle multiple select
@@ -38,7 +36,6 @@ const Selection = ({
     }
   };
 
-  
   const CustomFormControlField = styled(FormControl)(({ theme }) => ({
     width: allselectsx?.width || "200px",
     color: allselectsx?.color || "black",
@@ -83,10 +80,14 @@ const Selection = ({
     },
     "& .MuiSelect-select": {
       // If value is empty, hide the selected value in the box
-      color: labelName  ?  selectedValue?"inherit":"transparent" : "inherit",
+      color: labelName
+        ? selectedValue || multiple
+          ? "inherit"
+          : "transparent"
+        : "inherit",
       // display: "none",
     },
-    
+
     width: selectsx?.width || "200px",
     color: selectsx?.color || "black",
     outline: "none",
@@ -190,7 +191,6 @@ const Selection = ({
         multiple={multiple} // Set to true for multiple select
         autoWidth={props.autoWidth} // Set to true to auto-adjust the width of the menu to match the select width
         disableUnderline={props.disableUnderline} // Set to true to disable the underline
-     
       >
         {options.map((option, i) => (
           <CustomMenuItemField
