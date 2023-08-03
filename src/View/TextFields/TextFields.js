@@ -1,23 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 
 //MUI
-import TextField from '@mui/material/TextField';
-import Container from '@mui/material/Container';
+import { TextField } from '@mui/material';
 import styled from 'styled-components';
+
+//icons
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 
 //css
 import style from "./TextFields.module.css";
 
-//edited textfield
+//edited TextField
 const CustomTextField = styled(TextField)(({theme}) => ({
     outline: 'none',
 
     '& label':{
-        transform: 'translate(50%, 35%) scale(1)',
+        transform: 'translate(14px, 8px) scale(1)',
     },
     '& label.Mui-focused':{
         color: '#1976d2',
-        transform: 'translate(36%, -30%) scale(0.75)',
+        transform: 'translate(15px, -8px) scale(0.75)',
     },
     '& .MuiInputBase-root':{
         '& .MuiInputBase-input':{
@@ -29,7 +31,7 @@ const CustomTextField = styled(TextField)(({theme}) => ({
             borderColor: '#8a8a8a',
         },
         '&::after':{
-            borderColor: 'black',
+            borderColor: '#4b4b4b',
         },
         '& fieldset':{
             borderColor: '#8a8a8a',
@@ -42,28 +44,32 @@ const CustomTextField = styled(TextField)(({theme}) => ({
             borderColor: '#8a8a8a',
         },
         '&.Mui-focused fieldset':{
-            borderColor: 'black',
+            borderColor: '#4b4b4b',
         },
     },
     '& .MuiFormHelperText-root':{
+        position: 'absolute',
+        top: '100%',
         color: 'red',
     },
 }));
 
 function TextFields({type,label,variant,placeholder,width,autocomplete,value,validateData}){
 
-    const [error, setError] = React.useState('');
+    const [error, setError] = useState(''); //shows error message
+    const [showPassword, setShowPassword] = useState(false); //to set button and type
 
+    //toggle's the eye button
+    const handleTogglePassword = () => {
+        setShowPassword(prevShowPassword => !prevShowPassword);
+    };
+
+    //gets the data
     const handleValidate = (e) => {
         const {isValidate, invalidMessage} = validateData(e.target.value);
 
         if(!isValidate && e.target.value !== ''){
-            if(invalidMessage){
-                setError(invalidMessage);
-            }
-            else{
-                setError('Error');
-            }
+            setError(invalidMessage || 'Error');
         }
         else{
             setError('');
@@ -71,10 +77,10 @@ function TextFields({type,label,variant,placeholder,width,autocomplete,value,val
     };
 
     return(
-        <div style={{width: width ? width : '40%'}}>
+        <div className={`${style.textbox}`} style={{width: width ? width : '40%'}}>
             <span>Email*</span><br/>
             <CustomTextField id="outlined-basic"
-                             type={type}
+                             type={type === 'password' ? (showPassword ? "text" : "password") : type}
                              label={label}
                              variant={variant ? variant : 'outlined'}
                              placeholder={placeholder}
@@ -87,6 +93,14 @@ function TextFields({type,label,variant,placeholder,width,autocomplete,value,val
                     validateData && handleValidate(e);
                 }}
             />
+            {
+                type === 'password' &&
+                (showPassword ? (
+                    <BsEye className={`${style.eyebtn}`} onClick={handleTogglePassword} />
+                ) : (
+                    <BsEyeSlash className={`${style.eyebtn}`} onClick={handleTogglePassword} />
+                ))
+            }
         </div>
     );
 }

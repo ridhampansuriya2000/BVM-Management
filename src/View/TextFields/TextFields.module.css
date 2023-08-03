@@ -7,3 +7,28 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.textbox{
+    position: relative;
+}
+
+.eyebtn{
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #4b4b4b;
+}
+
+/* for white autofill background */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 50px white inset !important;
+}
+
+::placeholder{
+    font-size: 14px;
+}
