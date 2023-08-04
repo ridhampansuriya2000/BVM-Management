@@ -18,7 +18,12 @@ function View() {
   return (
     <>
       <Container sx={{ mt: 5 }}>
-        <Grid container spacing={3}>
+        <Grid
+          container
+          alignItems="center"
+          justifyContent="space-between"
+          spacing={3}
+        >
           <Grid item xs={12} sm={6} md={4}>
             <span>Email*</span>
             <br />
@@ -37,43 +42,40 @@ function View() {
             <span>Select </span>
             <br />
             <Selection
-        sx={{ boxShadow: "0" }}
-        allselectsx={{
-          borderRadius: "500px",
-          outline: "none",
-          width: "100px",
-        }}
-        selectsx={{
-          backgroundColor: "#F2F5FF",
-          dropdowniconcolor: "black",
-          color: "#808297",
-          boxShadow: "none !important",
-          borderRadius: "500px",
-          border: "none",
-        }}
-        optionsx={{
-          border: "red",
-          dropdowniconcolor: "black",
-          color: "#808297",
-          boxShadow: "none !important",
-          border: "none",
-        }}
-        options={[
-          { value: "", Text: "None" },
-          { value: "Age1", Text: "Age1" },
-          { value: "Age2", Text: "Age2" },
-        ]}
-      />
+            error
+              labelName="age"
+              allselectsx={{
+                borderRadius: "500px",
+                outline: "none",
+                width: "100px",
+              }}
+              selectsx={{
+                backgroundColor: "#F2F5FF",
+                dropdowniconcolor: "black",
+                color: "#808297",
+                boxShadow: "none !important",
+                borderRadius: "500px",
+              }}
+              optionsx={{
+                border: "red",
+                dropdowniconcolor: "black",
+                color: "#808297",
+                boxShadow: "none !important",
+                height: "200px !important",
+              }}
+              options={[
+                { value: "", Text: "None" },
+                { value: "Age1", Text: "Age1" },
+                { value: "Age2", Text: "Age2" },
+              ]}
+            />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
             <span>Email*</span>
             <br />
-            
           </Grid>
         </Grid>
       </Container>
-
-     
     </>
   );
 }

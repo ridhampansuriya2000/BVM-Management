@@ -16,6 +16,7 @@ const Selection = ({
   onFocus,
   optionsx,
   optionColor,
+  error,
   multiple,
   ...props
 }) => {
@@ -77,15 +78,7 @@ const Selection = ({
     "&..Mui-disabled": {
       display: "none",
     },
-    "& .MuiSelect-select": {
-      // If value is empty, hide the selected value in the box
-      color: labelName
-        ? selectedValue || multiple
-          ? "inherit"
-          : "transparent"
-        : "inherit",
-      // display: "none",
-    },
+    
     
     "& .MuiSelect-select": {
       // If value is empty, hide the selected value in the box
@@ -182,7 +175,7 @@ const Selection = ({
             
             outline : "none", // Change label border color when focused
             "&.Mui-focused": {
-              color: "blue", // Change label color when focused
+              color: error?"red":"blue", // Change label color when focused
 
             },
           }}
