@@ -1,47 +1,46 @@
-import {
-  Grid,
-  Box,
-  Typography,
-  Button,
-  Container,
-  ClickAwayListener,
-} from "@mui/material";
+import { Grid, Box, Typography, Container } from "@mui/material";
 import TextFields from "../../View/TextFields/TextFields";
 import Muibutton from "../../View/Button/Button";
 import forgot_password from "../../Assets/Images/forgot_password.png";
 import React, { useState } from "react";
 import Forgotkeyicon from "../../Assets/Icon/Forgotkeyicon";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router";
-
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(false);
+
+  
   const navigate = useNavigate();
 
   const validateData = (value) => {
     setEmail(value);
-      const validRegex = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$";
-      if(value.match(validRegex)){
-        return {
-            isValidate: true,
-            invalidMessage: "",
-         
-        };
-      }else{
-        return {
-            isValidate: false,
-            invalidMessage: "Invalid Email Address",
-         
-        };
-      }
-    
-  }
-  
- 
-  const clickHandler = (e) => {
+    const validRegex = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$";
+    if (value.match(validRegex)) {
+      setError(false);
+      return {
+        isValidate: true,
+        invalidMessage: "",
+      };
+    } else {
+      setError(true);
+      return {
+        isValidate: false,
+        invalidMessage: "Invalid Email Address",
+      };
+    }
+  };
+
+  const clickHandler = async (e) => {
+    e.preventDefault()
     console.log("clicked");
-    navigate("/checkemail")
+    if(error){
+      alert("error")
+  }else{
+  
+    navigate("/checkemail");
+  }
   };
 
   return (
@@ -93,41 +92,51 @@ function ForgotPassword() {
               </Typography>
             </Box>
             <br />
+            <form onSubmit={clickHandler}>
+              <Box sx={{ margin: "30px 0px" }}>
+                <Typography variant="body1" sx={{ fontWeight: "600" }}>
+                  Email <span>*</span>
+                </Typography>
 
-            <Box sx={{ margin: "30px 0px" }}>
-              <Typography variant="body1" sx={{ fontWeight: "600" }}>
-                Email <span>*</span>
-              </Typography>
-
-              <TextFields
-                placeholder="Enter your email"
-                variant="outlined"
-                fullWidth
-                value={email}
-                padding="50px"
-                validateData={validateData}
-              />
-            </Box>
-            <Box sx={{ margin: "30px 0px" }}>
+                <TextFields
+                  placeholder="Enter your email"
+                  variant="outlined"
+                  fullWidth
+                  value={email}
+                  padding="50px"
+                  validateData={validateData}
+                  required
+                />
+              </Box>
+              <Box sx={{ margin: "30px 0px" }}>
+                <Muibutton
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  text=" Reset Password"
+                  yz={{ width: "100%" }}
+                ></Muibutton>
+              </Box>
+            </form>
+            <Box sx={{ margin: "30px 0px", textAlign:"center" }}>
             <Muibutton
               variant="contained"
-              color="primary"
+              bgcolor="none"
               fullWidth
-              text=" Reset Password"
-              yz={{ width: "100%" }}
-              onClick={clickHandler}
+              text=" Back to Login"
+              yz={{
+                width: "max-content",
+                hoverBgColor: "none",
+                color: "blue",
+                hoverColor: "black",
+                shadow: "none",
+                hoverShadow: "none",
+              }}
+              onClick={() => navigate("/")}
+              startIcon={<ArrowBackIcon />}
             ></Muibutton>
             </Box>
-             <Muibutton
-                variant="contained"
-                bgcolor="none"
-                
-                fullWidth
-                text=" Back to Login"
-                yz={{ width: "100%",hoverBgColor: "none",color:"blue",hoverColor:"black",shadow:"none",hoverShadow:"none" }}
-                onClick={() => navigate("/")}
-                startIcon={<ArrowBackIcon/>}
-              ></Muibutton>
           </Box>
         </Grid>
       </Grid>
