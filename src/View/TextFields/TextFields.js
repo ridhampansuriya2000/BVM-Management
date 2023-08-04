@@ -69,7 +69,7 @@ function TextFields({type,label,variant,placeholder,width,autocomplete,value,nam
     const handleValidate = (event) => {
         const {isValidate, invalidMessage} = validateData(event);
 
-        if(!isValidate && e.target.value !== ''){
+        if(!isValidate && event.target.value !== ''){
             setError(invalidMessage || 'Error');
         }
         else{
