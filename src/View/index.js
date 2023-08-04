@@ -72,39 +72,41 @@ function View() {
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-                        <span>Button*</span><br/>
-                        <Muibutton
-            variant={""}
-            bgcolor={""}
-            loading={""}
-            size={""}
-            startIcon={""}
-            endIcon={""}
-            text={""}
-            onClick={null}
-            yz={{
-                width: "",
-                height: "",
-                fontSize: "",
-                borderRadius: "",
-                fontWeight: "",
-                fontStyle: "",
-                textTransform: "",
-                color: "",
-                shadow: "",
-                hoverBgColor: "",
-                hoverColor: "",
-                hoverShadow: "",
-                transition: "",
-                lodingcolor: "",
-                lodingwidth: "",
-                lodingheight: "",
-            }}
-        />
-                    </Grid>
-                </Grid>
-            </Container>
-        </>
-    );}
+            <span>Button*</span>
+              <br />
+              <Muibutton
+                  variant={""}
+                  bgcolor={""}
+                  loading={""}
+                  size={""}
+                  startIcon={""}
+                  endIcon={""}
+                  text={""}
+                  onClick={null}
+                  yz={{
+                      width: "",
+                      height: "",
+                      fontSize: "",
+                      borderRadius: "",
+                      fontWeight: "",
+                      fontStyle: "",
+                      textTransform: "",
+                      color: "",
+                      shadow: "",
+                      hoverBgColor: "",
+                      hoverColor: "",
+                      hoverShadow: "",
+                      transition: "",
+                      lodingcolor: "",
+                      lodingwidth: "",
+                      lodingheight: "",
+                  }}
+              />
+          </Grid>
+        </Grid>
+      </Container>
+    </>
+  );
+}
 
 export default View;
