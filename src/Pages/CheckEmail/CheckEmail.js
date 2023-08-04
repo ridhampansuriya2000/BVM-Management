@@ -2,15 +2,12 @@ import {
   Grid,
   Box,
   Typography,
-  Button,
   Container,
-  ClickAwayListener,
 } from "@mui/material";
-import TextFields from "../../View/TextFields/TextFields";
 import Muibutton from "../../View/Button/Button";
-import forgot_password from "../../Assets/Images/forgot_password.png";
+import emailimg from "../../Assets/Images/emailimg.png";
 import React, { useState } from "react";
-import Forgotkeyicon from "../../Assets/Icon/Forgotkeyicon";
+import Emailicon from "../../Assets/Icon/Emailicon";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router";
 
@@ -49,8 +46,8 @@ function CheckEmail() {
       >
         <Grid item xs={12} md={8} sx={{ display: { xs: "none", md: "flex" } }}>
           <img
-            src={forgot_password}
-            alt="Forgot Password ?"
+            src={emailimg}
+            alt="Send Email?"
             loading="lazy"
             style={{ width: "100%", height: "auto" }}
           />
@@ -65,7 +62,7 @@ function CheckEmail() {
                 marginBottom: "30px",
               }}
             >
-              <Forgotkeyicon width="70px" height="100%" />
+              <Emailicon width="70px" height="100%" />
             </Box>
             <Box>
               <Typography
@@ -98,7 +95,7 @@ function CheckEmail() {
                 variant="body1"
                 sx={{ textAlign: "center", color: "gray" }}
               >
-                Didn’t receive the email? <span style={{color:"blue"}}>Click to resend</span>
+                Didn’t receive the email? <span style={{color:"blue",cursor:"pointer"}} onClick={()=>navigate("/forgotpassword")} >Click to resend</span>
               </Typography>
             </Box>
             <br />
