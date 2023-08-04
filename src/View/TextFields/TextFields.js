@@ -55,11 +55,9 @@ const CustomTextField = styled(TextField)(({theme}) => ({
     },
 }));
 
+function TextFields({type,label,variant,placeholder,width,autocomplete,value,validateData,name,required,helperText,onChange}){
 
-function TextFields({type,label,variant,placeholder,width,autocomplete,value,validateData,required}){
-
-
-    const [error, setError] = useState(''); //shows error message
+    const [error, setError] = useState(helperText|| ''); //shows error message
     const [showPassword, setShowPassword] = useState(false); //to set button and type
 
     //toggle's the eye button
@@ -95,7 +93,7 @@ function TextFields({type,label,variant,placeholder,width,autocomplete,value,val
                              required={required}
                 onChange={(e) => {
                     validateData && handleValidate(e);
-
+                    onChange(e);
                 }}
             />
             {

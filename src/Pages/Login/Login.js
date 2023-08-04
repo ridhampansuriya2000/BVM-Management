@@ -29,6 +29,7 @@ function Login() {
     const stateHandler = (event) => {
 
         let { name, value } = event.target;
+        console.log(value);
 
         setFormValue({
             values: {
@@ -83,7 +84,7 @@ function Login() {
                             <Grid container sx={{mt: 6}}>
                                 <Grid item xs={12}>
                                     <span className={`${style.fieldtitle}`}>Email</span>
-                                    <TextFields type={'text'} placeholder={'Enter your email'} name={'email'} autocomplete={'off'} value={formValue.values.email} validateData={stateHandler}></TextFields>
+                                    <TextFields type={'text'} placeholder={'Enter your email'} name={'email'} autocomplete={'off'} value={formValue.values.email} onChange={stateHandler}></TextFields>
                                 </Grid>
                             </Grid>
                             <Grid container sx={{mt: 4}}>
