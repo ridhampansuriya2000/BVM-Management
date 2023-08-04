@@ -51,6 +51,7 @@ const CustomTextField = styled(TextField)(({theme}) => ({
         position: 'absolute',
         top: '100%',
         color: 'red',
+        marginLeft: '5px',
     },
 }));
 

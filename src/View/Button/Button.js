@@ -27,7 +27,7 @@ const Muibutton = ({
     fontWeight: yz?.fontWeight || "bold",
     fontStyle: yz?.fontStyle || "normal",
     textTransform: yz?.textTransform || "capitalize",
-    color: yz?.color ||  disabled ? "gray":"white",
+    color:  disabled ? "gray" : yz?.color || "white",
     boxShadow: yz?.shadow || "0px 4px 6px rgba(0, 0, 0, 0.1)",
     minWidth: "0",
     "& .MuiCircularProgress-root": {
@@ -52,7 +52,7 @@ const Muibutton = ({
         startIcon={startIcon}
         endIcon={endIcon}
         loading={loading}
-
+        
         disabled={disabled}
         {...props}
       >
