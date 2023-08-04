@@ -55,7 +55,7 @@ const CustomTextField = styled(TextField)(({theme}) => ({
     },
 }));
 
-function TextFields({type,label,variant,placeholder,width,autocomplete,value,validateData,validatePassword}){
+function TextFields({type,label,variant,placeholder,width,autocomplete,value,validateData}){
 
     const [error, setError] = useState(''); //shows error message
     const [showPassword, setShowPassword] = useState(false); //to set button and type
@@ -67,7 +67,7 @@ function TextFields({type,label,variant,placeholder,width,autocomplete,value,val
 
     //gets the data
     const handleValidate = (e) => {
-        const {isValidate, invalidMessage} = validateData ? validateData(e.target.value) : validatePassword(e.target.value);
+        const {isValidate, invalidMessage} = validateData(e.target.value);
 
         if(!isValidate && e.target.value !== ''){
             setError(invalidMessage || 'Error');
@@ -90,7 +90,7 @@ function TextFields({type,label,variant,placeholder,width,autocomplete,value,val
                              autoComplete={autocomplete}
 
                 onChange={(e) => {
-                    (validateData || validatePassword) && handleValidate(e);
+                    validateData && handleValidate(e);
                 }}
             />
             {
