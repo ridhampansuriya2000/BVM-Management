@@ -12,12 +12,13 @@ const Muibutton = ({
   variant,
   loading,
   text,
+  disabled,
   ...props
 }) => {
   const CustomButton = styled(LoadingButton)(({ theme }) => ({
     background: bgcolor
       ? bgcolor
-      : "linear-gradient(to right,#39415C, #040822)",
+      : disabled ? "none":"linear-gradient(to right,#39415C, #040822)",
     maxWidth: yz?.width || "400px",
     width: "100%",
     height: yz?.height || "50px",
