@@ -199,7 +199,7 @@ const Selection = ({
         onFocus={onFocus} // Function to handle focus event
         multiple={multiple} // Set to true for multiple select
         autoWidth={props.autoWidth} // Set to true to auto-adjust the width of the menu to match the select width
-        disableUnderline={props.disableUnderline} // Set to true to disable the underline
+        {...props} // Set to true to disable the underline
         sx={props.sx}
       >
         {options.map((option, i) => (
