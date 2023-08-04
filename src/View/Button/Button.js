@@ -12,12 +12,13 @@ const Muibutton = ({
   variant,
   loading,
   text,
+  disabled,
   ...props
 }) => {
   const CustomButton = styled(LoadingButton)(({ theme }) => ({
     background: bgcolor
       ? bgcolor
-      : "linear-gradient(to right,#39415C, #040822)",
+      : disabled ? "none":"linear-gradient(to right,#39415C, #040822)",
     maxWidth: yz?.width || "400px",
     width: "100%",
     height: yz?.height || "50px",
@@ -26,7 +27,7 @@ const Muibutton = ({
     fontWeight: yz?.fontWeight || "bold",
     fontStyle: yz?.fontStyle || "normal",
     textTransform: yz?.textTransform || "capitalize",
-    color: yz?.color || "white",
+    color: yz?.color ||  disabled ? "gray":"white",
     boxShadow: yz?.shadow || "0px 4px 6px rgba(0, 0, 0, 0.1)",
     minWidth: "0",
     "& .MuiCircularProgress-root": {
@@ -51,6 +52,8 @@ const Muibutton = ({
         startIcon={startIcon}
         endIcon={endIcon}
         loading={loading}
+
+        disabled={disabled}
         {...props}
       >
         {text || "Sign in"}
