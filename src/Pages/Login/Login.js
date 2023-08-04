@@ -2,7 +2,9 @@ import React from "react";
 
 function Login() {
     return(
-        <>Login</>
+        <>
+            <span>Login</span>
+        </>
     );
 }
 
