@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Muibutton from "./Button/Button";
 import TextFields from "./TextFields/TextFields";
 import Selection from "./Selection/Selection";
 import { Grid, Container } from "@mui/material";
@@ -38,6 +39,7 @@ function View() {
               validateData={validateData}
             />
           </Grid>
+
           <Grid item xs={12} sm={6} md={4}>
             <span>Select </span>
             <br />
@@ -71,8 +73,36 @@ function View() {
             />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <span>Email*</span>
-            <br />
+            <span>Button*</span>
+              <br />
+              <Muibutton
+                  variant={""}
+                  bgcolor={""}
+                  loading={""}
+                  size={""}
+                  startIcon={""}
+                  endIcon={""}
+                  text={""}
+                  onClick={null}
+                  yz={{
+                      width: "",
+                      height: "",
+                      fontSize: "",
+                      borderRadius: "",
+                      fontWeight: "",
+                      fontStyle: "",
+                      textTransform: "",
+                      color: "",
+                      shadow: "",
+                      hoverBgColor: "",
+                      hoverColor: "",
+                      hoverShadow: "",
+                      transition: "",
+                      lodingcolor: "",
+                      lodingwidth: "",
+                      lodingheight: "",
+                  }}
+              />
           </Grid>
         </Grid>
       </Container>
