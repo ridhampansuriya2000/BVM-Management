@@ -27,7 +27,7 @@ const Selection = ({
     if (multiple) {
       // Handle multiple select
       const { value } = event.target;
-      console.log("MultipleSelectedValue", multipleselectedValue);
+      // console.log("MultipleSelectedValue", multipleselectedValue);
 
       setMultipleSelectedValue(value.filter((e) => e !== ""));
     } else {
@@ -207,9 +207,9 @@ const Selection = ({
             key={i}
             value={option.value}
             defaultValue={option?.default}
-            onClick={
-              multiple ? (event) => event.stopPropagation() : console.log("hi")
-            }
+            // onClick={
+            //   multiple ? (event) => event.stopPropagation() : console.log("hi")
+            // }
           >
             {option.Text}
           </CustomMenuItemField>
