@@ -1,5 +1,4 @@
 import logo from './logo.svg';
-import './App.css';
 import {Routes, Route} from "react-router-dom";
 
 //pages
@@ -8,6 +7,9 @@ import Login from "./Pages/Login/Login";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import CheckEmail from "./Pages/CheckEmail/CheckEmail";
 import NewPassword from "./Pages/NewPassword/NewPassword";
+
+//css
+import './App.css';
 
 function App(){
     return (
