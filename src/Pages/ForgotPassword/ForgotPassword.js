@@ -14,7 +14,8 @@ function ForgotPassword() {
   
   const navigate = useNavigate();
 
-  const validateData = (value) => {
+  const validateData = (event) => {
+    const value = event.target.value
     setEmail(value);
     const validRegex = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$";
     if (value.match(validRegex)) {
@@ -105,6 +106,7 @@ function ForgotPassword() {
                   value={email}
                   padding="50px"
                   validateData={validateData}
+                  onChange={validateData}
                   required
                 />
               </Box>
