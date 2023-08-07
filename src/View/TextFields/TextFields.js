@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 //MUI
 import { TextField } from '@mui/material';
@@ -55,26 +55,14 @@ const CustomTextField = styled(TextField)(({theme}) => ({
     },
 }));
 
-function TextFields({type,label,variant,placeholder,width,autocomplete,value,validateData,name,required,helperText,onChange}){
 
-    const [error, setError] = useState(helperText|| ''); //shows error message
+function TextFields({type,label,variant,placeholder,width,autocomplete,value,name,required,helperText,onChange}){
+
     const [showPassword, setShowPassword] = useState(false); //to set button and type
 
     //toggle's the eye button
     const handleTogglePassword = () => {
         setShowPassword(prevShowPassword => !prevShowPassword);
-    };
-
-    //gets the data
-    const handleValidate = (event) => {
-        const {isValidate, invalidMessage} = validateData(event);
-
-        if(!isValidate && event.target.value !== ''){
-            setError(invalidMessage || 'Error');
-        }
-        else{
-            setError('');
-        }
     };
 
     return(
@@ -86,13 +74,12 @@ function TextFields({type,label,variant,placeholder,width,autocomplete,value,val
                              placeholder={placeholder}
                              fullWidth={true}
                              value={value}
-                             helperText={error}
+                             helperText={helperText}
                              name={name}
                              autoComplete={autocomplete}
 
                              required={required}
                 onChange={(e) => {
-                    validateData && handleValidate(e);
                     onChange(e);
                 }}
             />

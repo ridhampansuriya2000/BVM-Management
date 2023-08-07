@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 //mui
 import { Grid } from "@mui/material";
@@ -12,54 +13,66 @@ import style from "./Login.module.css";
 
 function Login() {
 
+    const navigate = useNavigate();
+
     const [formValue, setFormValue] = useState({
         values: {
             email: '',
             password: '',
         },
-        errors: {
-
-        },
-        touch: {
-
-        }
-
+        touched: {},
+        error: "",
     });
 
     const stateHandler = (event) => {
 
         let { name, value } = event.target;
-        console.log(value);
+        console.log(`${name}`,value);
 
         setFormValue({
+            ...formValue,
             values: {
+                ...formValue.values,
                 [name]: value,
-            }
+            },
+            touched:{
+                ...formValue.touched,
+                [name]: true,
+            },
+            error: {
+                ...formValue.error,
+                [name]: "",
+            },
         });
 
-        return {
-            isValidate: true,
-            invalidMessage: "",
-        };
     };
 
-    // const validateEmail = (value) => {
-    //     setemail(value);
-    //
-    //     const validEmail = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$";
-    //
-    //     if(value.match(validEmail)){
-    //         return {
-    //             isValidate: true,
-    //             invalidMessage: "",
-    //         };
-    //     }else {
-    //         return {
-    //             isValidate: false,
-    //             invalidMessage: "Invalid Email",
-    //         };
-    //     }
-    // };
+    const errorHandler = ({name,error}) => {
+
+        setFormValue({
+            ...formValue,
+            touched:{
+                ...formValue.touched,
+                [name]: false,
+            },
+            error: {
+                ...formValue.error,
+                [name]: error,
+            },
+        });
+
+    };
+
+    const handleSubmit = () => {
+
+        if(formValue.touched.email){
+            errorHandler({name: 'email',error: 'Email is touched'});
+        }
+
+        if(formValue.touched.password){
+            errorHandler({name: 'password',error: 'Password is touched'});
+        }
+    };
 
     return(
         <>
@@ -83,28 +96,60 @@ function Login() {
                             </Grid>
                             <Grid container sx={{mt: 6}}>
                                 <Grid item xs={12}>
-                                    <span className={`${style.fieldtitle}`}>Email</span>
-                                    <TextFields type={'text'} placeholder={'Enter your email'} name={'email'} autocomplete={'off'} value={formValue.values.email} onChange={stateHandler}></TextFields>
+                                    <span
+                                        className={`${style.fieldtitle}`}
+                                    >
+                                        Email
+                                    </span>
+                                    <TextFields
+                                        type={'text'}
+                                        placeholder={'Enter your email'}
+                                        name={'email'}
+                                        autocomplete={'off'}
+                                        value={formValue.values.email}
+                                        helperText={formValue.error.email}
+                                        onChange={stateHandler}
+                                    />
                                 </Grid>
                             </Grid>
                             <Grid container sx={{mt: 4}}>
                                 <Grid item xs={12}>
                                     <span className={`${style.fieldtitle}`}>Password</span>
-                                    <TextFields type={'password'} placeholder={'Password'} autocomplete={'off'}></TextFields>
+                                    <TextFields
+                                        type={'password'}
+                                        placeholder={'Password'}
+                                        name={'password'}
+                                        autocomplete={'off'}
+                                        value={formValue.values.password}
+                                        helperText={formValue.error.password}
+                                        onChange={stateHandler}
+                                    />
                                 </Grid>
                             </Grid>
                             <Grid container sx={{mt: 5, justifyContent: 'space-between', alignItems: 'center'}}>
                                 <Grid item sx={{display: 'flex', alignItems: 'center'}}>
-                                    <input type={'checkbox'} id={'remember'} value={'remember'} className={`${style.remcheckbox}`} />
-                                    <label for={'remember'} className={`${style.remlabel}`} >Remember</label>
+                                    <input
+                                        type={'checkbox'}
+                                        id={'remember'}
+                                        value={'remember'}
+                                        className={`${style.remcheckbox}`}
+                                    />
+                                    <label htmlFor={'remember'} className={`${style.remlabel}`} >Remember</label>
                                 </Grid>
                                 <Grid item>
-                                    <span className={`${style.forgotpass}`}>Forgot password?</span>
+                                    <span className={`${style.forgotpass}`}
+                                          onClick={() => navigate('/forgotpassword')}
+                                    >
+                                        Forgot password?
+                                    </span>
                                 </Grid>
                             </Grid>
                             <Grid container sx={{mt: 4}}>
                                 <Grid item xs={12}>
-                                    <Button yz={{width: '100%', fontWeight: '500'}}></Button>
+                                    <Button
+                                        yz={{width: '100%', fontWeight: '500'}}
+                                        onClick={handleSubmit}
+                                    />
                                 </Grid>
                             </Grid>
                         </div>
