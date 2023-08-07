@@ -20,8 +20,8 @@ function Login() {
             email: '',
             password: '',
         },
-        errors: {},
-        touch: {},
+        touched: {},
+        error: "",
     });
 
     const stateHandler = (event) => {
@@ -30,34 +30,25 @@ function Login() {
         console.log(`${name}`,value);
 
         setFormValue({
+            ...formValue,
             values: {
+                ...formValue.values,
                 [name]: value,
-            }
+            },
+            touched:{
+                ...formValue.touched,
+                [name]: true,
+            },
+            error: "",
         });
 
-        return {
-            isValidate: true,
-            invalidMessage: "",
-        };
     };
 
-    // const validateEmail = (value) => {
-    //     setemail(value);
-    //
-    //     const validEmail = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$";
-    //
-    //     if(value.match(validEmail)){
-    //         return {
-    //             isValidate: true,
-    //             invalidMessage: "",
-    //         };
-    //     }else {
-    //         return {
-    //             isValidate: false,
-    //             invalidMessage: "Invalid Email",
-    //         };
-    //     }
-    // };
+    const handleSubmit = () => {
+        if(formValue.touched.email){
+            setFormValue({...formValue,error: "Error is touched"});
+        }
+    };
 
     return(
         <>
@@ -92,6 +83,7 @@ function Login() {
                                         name={'email'}
                                         autocomplete={'off'}
                                         value={formValue.values.email}
+                                        helperText={formValue.error}
                                         onChange={stateHandler}
                                     />
                                 </Grid>
@@ -102,6 +94,7 @@ function Login() {
                                     <TextFields
                                         type={'password'}
                                         placeholder={'Password'}
+                                        name={'password'}
                                         autocomplete={'off'}
                                         value={formValue.values.password}
                                         onChange={stateHandler}
@@ -116,7 +109,7 @@ function Login() {
                                         value={'remember'}
                                         className={`${style.remcheckbox}`}
                                     />
-                                    <label for={'remember'} className={`${style.remlabel}`} >Remember</label>
+                                    <label htmlFor={'remember'} className={`${style.remlabel}`} >Remember</label>
                                 </Grid>
                                 <Grid item>
                                     <span className={`${style.forgotpass}`}
@@ -130,6 +123,7 @@ function Login() {
                                 <Grid item xs={12}>
                                     <Button
                                         yz={{width: '100%', fontWeight: '500'}}
+                                        onClick={handleSubmit}
                                     />
                                 </Grid>
                             </Grid>
