@@ -58,7 +58,7 @@ function Login() {
 
     };
 
-    const handleSubmit = () => {
+    const validateData = () => {
 
         const validEmail = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$";
         const validPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
@@ -91,8 +91,11 @@ function Login() {
             return false;
         }
 
-        return navigate('/view');
+        return true;
+    };
 
+    const handleSubmit = () => {
+        validateData() && navigate('/view');
     };
 
     return(
