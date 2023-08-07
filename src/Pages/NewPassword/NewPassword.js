@@ -4,6 +4,7 @@ import Muibutton from "../../View/Button/Button";
 import TextField from "../../View/TextFields/TextFields";
 import Keysvg from "../../Assets/Icon/Keysvg";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useNavigate } from "react-router-dom";
 
 function NewPassword() {
 
@@ -13,13 +14,13 @@ function NewPassword() {
             confirmPassword: ""
         },
         touched: {},
-        errors: {},
+        errors: "",
     });
 
+    const navigate = useNavigate();
 
     const stateHendler = (event) => {
         const { name, value } = event.target;
-        console.log(name , value)
         setFormValue((prevState) => ({
             ...prevState,
             values: {
@@ -38,17 +39,9 @@ function NewPassword() {
     };
 
 
-    const errorHendler = ({ name, error }) => {
-
-        // const validPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
-
+    const errorHandler = ({ name, error }) => {
         setFormValue((prevState) => ({
             ...prevState,
-
-            touched: {
-                ...prevState.touched,
-                [name]: false,
-            },
             errors: {
                 ...prevState.errors,
                 [name]: error
@@ -57,38 +50,26 @@ function NewPassword() {
 
     };
 
+
     const validateForm = () => {
         const validPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
         const { password, confirmPassword } = formValue.values;
 
-        
-        if (password !== confirmPassword) {
-            setFormValue((prevState) => ({
-                ...prevState,
-                errors: {
-                    ...prevState.errors,
-                    confirmPassword: "Passwords do not match",
-                },
-            }));
-            return false;
-        } else if (!validPasswordRegex.test(password)) {
-            setFormValue((prevState) => ({
-                ...prevState,
-                errors: {
-                    ...prevState.errors,
-                    password: "Password must meet the required criteria",
-                },
-            }));
+        if (!password.match(validPasswordRegex)) {
+            errorHandler({ name: 'password', error: 'invalid password!' })
             return false;
         }
-
-       
-        setFormValue((prevState) => ({
-            ...prevState,
-            errors: {},
-        }));
-
+        else {
+            errorHandler({ name: 'password', error: "" });
+        }
+        if (confirmPassword !== password) {
+            errorHandler({ name: 'confirmPassword', error: 'Password is not match!' })
+            return false;
+        }
+        else {
+            errorHandler({ name: 'confirmPassword', error: "" });
+        }
         return true;
     };
 
@@ -98,22 +79,11 @@ function NewPassword() {
         return password.trim() !== "" && confirmPassword.trim() !== "";
     };
 
-    const hendleSubmit = () => {
+    const hendleSubmit = (event) => {
+        event.preventDefault();
         if (validateForm()) {
-
-            console.log("isValidate")
-            console.log(formValue.values);
+            navigate('/view');
         }
-
-       
-        // setFormValue({
-        //     values: {
-        //         password: "",
-        //         confirmPassword: ""
-        //     },
-        //     touched: {},
-        //     errors: {},
-        // });
     };
 
     return (
@@ -141,15 +111,14 @@ function NewPassword() {
                             </Typography>
                             <Box sx={{ mt: "20px", }}>
                                 <Typography>Password*</Typography>
-                                <TextField type={'password'} name={'password'} value={formValue.values.password} onChange={stateHendler} helperText={setFormValue.errors} />
+                                <TextField type={'password'} name={'password'} value={formValue.values.password} onChange={stateHendler} helperText={formValue.errors.password} />
                             </Box>
                             <Box sx={{ mt: "20px", }}>
                                 <Typography>Confirm password*</Typography>
-                                <TextField type={'password'} name={'confirmPassword'} value={formValue.values.confirmPassword} onChange={stateHendler} helperText={setFormValue.errors} />
+                                <TextField type={'password'} name={'confirmPassword'} value={formValue.values.confirmPassword} onChange={stateHendler} helperText={formValue.errors.confirmPassword} />
                             </Box>
                             <Box sx={{ mt: "20px", }}>
                                 <Muibutton yz={{ height: "47px" }} text={"Reset password"} onClick={hendleSubmit} disabled={!areAllFieldsFilled()} />
-                                {/* {!areAllFieldsFilled() && ""} */}
                                 <Muibutton
                                     variant="contained"
                                     bgcolor="none"
