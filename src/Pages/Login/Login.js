@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 //mui
 import { Grid } from "@mui/material";
@@ -12,24 +13,21 @@ import style from "./Login.module.css";
 
 function Login() {
 
+    const navigate = useNavigate();
+
     const [formValue, setFormValue] = useState({
         values: {
             email: '',
             password: '',
         },
-        errors: {
-
-        },
-        touch: {
-
-        }
-
+        errors: {},
+        touch: {},
     });
 
     const stateHandler = (event) => {
 
         let { name, value } = event.target;
-        console.log(value);
+        console.log(`${name}`,value);
 
         setFormValue({
             values: {
@@ -83,28 +81,56 @@ function Login() {
                             </Grid>
                             <Grid container sx={{mt: 6}}>
                                 <Grid item xs={12}>
-                                    <span className={`${style.fieldtitle}`}>Email</span>
-                                    <TextFields type={'text'} placeholder={'Enter your email'} name={'email'} autocomplete={'off'} value={formValue.values.email} onChange={stateHandler}></TextFields>
+                                    <span
+                                        className={`${style.fieldtitle}`}
+                                    >
+                                        Email
+                                    </span>
+                                    <TextFields
+                                        type={'text'}
+                                        placeholder={'Enter your email'}
+                                        name={'email'}
+                                        autocomplete={'off'}
+                                        value={formValue.values.email}
+                                        onChange={stateHandler}
+                                    />
                                 </Grid>
                             </Grid>
                             <Grid container sx={{mt: 4}}>
                                 <Grid item xs={12}>
                                     <span className={`${style.fieldtitle}`}>Password</span>
-                                    <TextFields type={'password'} placeholder={'Password'} autocomplete={'off'}></TextFields>
+                                    <TextFields
+                                        type={'password'}
+                                        placeholder={'Password'}
+                                        autocomplete={'off'}
+                                        value={formValue.values.password}
+                                        onChange={stateHandler}
+                                    />
                                 </Grid>
                             </Grid>
                             <Grid container sx={{mt: 5, justifyContent: 'space-between', alignItems: 'center'}}>
                                 <Grid item sx={{display: 'flex', alignItems: 'center'}}>
-                                    <input type={'checkbox'} id={'remember'} value={'remember'} className={`${style.remcheckbox}`} />
+                                    <input
+                                        type={'checkbox'}
+                                        id={'remember'}
+                                        value={'remember'}
+                                        className={`${style.remcheckbox}`}
+                                    />
                                     <label for={'remember'} className={`${style.remlabel}`} >Remember</label>
                                 </Grid>
                                 <Grid item>
-                                    <span className={`${style.forgotpass}`}>Forgot password?</span>
+                                    <span className={`${style.forgotpass}`}
+                                          onClick={() => navigate('/forgotpassword')}
+                                    >
+                                        Forgot password?
+                                    </span>
                                 </Grid>
                             </Grid>
                             <Grid container sx={{mt: 4}}>
                                 <Grid item xs={12}>
-                                    <Button yz={{width: '100%', fontWeight: '500'}}></Button>
+                                    <Button
+                                        yz={{width: '100%', fontWeight: '500'}}
+                                    />
                                 </Grid>
                             </Grid>
                         </div>
