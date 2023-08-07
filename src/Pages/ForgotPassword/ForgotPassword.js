@@ -8,40 +8,42 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useNavigate } from "react-router";
 
 function ForgotPassword() {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState(false);
+
+  
+  const [FormState, setFormState] = useState({values:{email:""},touched:{},errors:{}});
+ 
 
   
   const navigate = useNavigate();
 
-  const validateData = (event) => {
-    const value = event.target.value
-    setEmail(value);
-    const validRegex = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$";
-    if (value.match(validRegex)) {
-      setError(false);
-      return {
-        isValidate: true,
-        invalidMessage: "",
-      };
-    } else {
-      setError(true);
-      return {
-        isValidate: false,
-        invalidMessage: "Invalid Email Address",
-      };
-    }
+  const onChangeHandler = (event) => {
+    const {name,value} = event.target
+    console.log(value)
+    const validEmail = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$";
+    setFormState((prevState) => ({
+      ...prevState,
+      values: {
+        ...prevState.values,
+          [name]: value,
+      },
+      touched: {
+        ...prevState.touched,
+        [name]: true,
+      },
+      errors: {
+        ...prevState.errors,
+        [name]: name === 'email' && !validEmail.match(value) ? 'Invalid email address' : '',
+      },
+    }));
   };
+
+  console.log(FormState)
+ 
 
   const clickHandler = async (e) => {
     e.preventDefault()
     console.log("clicked");
-    if(error){
-      alert("error")
-  }else{
-  
     navigate("/checkemail");
-  }
   };
 
   return (
@@ -98,15 +100,17 @@ function ForgotPassword() {
                 <Typography variant="body1" sx={{ fontWeight: "600" }}>
                   Email <span>*</span>
                 </Typography>
-
+{console.log("error",FormState.errors?.email)}
                 <TextFields
                   placeholder="Enter your email"
                   variant="outlined"
                   fullWidth
-                  value={email}
+                  name="email"
+                  value={FormState.values.email}
                   padding="50px"
-                  validateData={validateData}
-                  onChange={validateData}
+                  // validateData={validateData}
+                  helperText={FormState.errors?.email}
+                  onChange={onChangeHandler}
                   required
                 />
               </Box>
