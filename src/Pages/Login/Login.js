@@ -20,8 +20,8 @@ function Login() {
             email: '',
             password: '',
         },
-        errors: {},
-        touch: {},
+        touched: {},
+        error: "",
     });
 
     const stateHandler = (event) => {
@@ -30,34 +30,49 @@ function Login() {
         console.log(`${name}`,value);
 
         setFormValue({
+            ...formValue,
             values: {
+                ...formValue.values,
                 [name]: value,
-            }
+            },
+            touched:{
+                ...formValue.touched,
+                [name]: true,
+            },
+            error: {
+                ...formValue.error,
+                [name]: "",
+            },
         });
 
-        return {
-            isValidate: true,
-            invalidMessage: "",
-        };
     };
 
-    // const validateEmail = (value) => {
-    //     setemail(value);
-    //
-    //     const validEmail = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$";
-    //
-    //     if(value.match(validEmail)){
-    //         return {
-    //             isValidate: true,
-    //             invalidMessage: "",
-    //         };
-    //     }else {
-    //         return {
-    //             isValidate: false,
-    //             invalidMessage: "Invalid Email",
-    //         };
-    //     }
-    // };
+    const errorHandler = ({name,error}) => {
+
+        setFormValue({
+            ...formValue,
+            touched:{
+                ...formValue.touched,
+                [name]: false,
+            },
+            error: {
+                ...formValue.error,
+                [name]: error,
+            },
+        });
+
+    };
+
+    const handleSubmit = () => {
+
+        if(formValue.touched.email){
+            errorHandler({name: 'email',error: 'Email is touched'});
+        }
+
+        if(formValue.touched.password){
+            errorHandler({name: 'password',error: 'Password is touched'});
+        }
+    };
 
     return(
         <>
@@ -92,6 +107,7 @@ function Login() {
                                         name={'email'}
                                         autocomplete={'off'}
                                         value={formValue.values.email}
+                                        helperText={formValue.error.email}
                                         onChange={stateHandler}
                                     />
                                 </Grid>
@@ -102,8 +118,10 @@ function Login() {
                                     <TextFields
                                         type={'password'}
                                         placeholder={'Password'}
+                                        name={'password'}
                                         autocomplete={'off'}
                                         value={formValue.values.password}
+                                        helperText={formValue.error.password}
                                         onChange={stateHandler}
                                     />
                                 </Grid>
@@ -116,7 +134,7 @@ function Login() {
                                         value={'remember'}
                                         className={`${style.remcheckbox}`}
                                     />
-                                    <label for={'remember'} className={`${style.remlabel}`} >Remember</label>
+                                    <label htmlFor={'remember'} className={`${style.remlabel}`} >Remember</label>
                                 </Grid>
                                 <Grid item>
                                     <span className={`${style.forgotpass}`}
@@ -130,6 +148,7 @@ function Login() {
                                 <Grid item xs={12}>
                                     <Button
                                         yz={{width: '100%', fontWeight: '500'}}
+                                        onClick={handleSubmit}
                                     />
                                 </Grid>
                             </Grid>
