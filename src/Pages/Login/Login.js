@@ -50,10 +50,6 @@ function Login() {
 
         setFormValue((prevstate) => ({
             ...prevstate,
-            touched: {
-                ...prevstate.touched,
-                [name]: false,
-            },
             error: {
                 ...prevstate.error,
                 [name]: error,
@@ -62,7 +58,7 @@ function Login() {
 
     };
 
-    const handleSubmit = () => {
+    const validateData = () => {
 
         const validEmail = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$";
         const validPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
@@ -70,6 +66,7 @@ function Login() {
         if(formValue.touched.email){
             if(!formValue.values.email.match(validEmail)){
                 errorHandler({name: 'email',error: 'Invalid Email'});
+                return false;
             }
             else {
                 errorHandler({name: 'email',error: ""});
@@ -77,11 +74,13 @@ function Login() {
         }
         else{
             errorHandler({name: 'email',error: 'Email is empty'});
+            return false;
         }
 
         if(formValue.touched.password){
             if(!formValue.values.password.match(validPassword)){
                 errorHandler({name: 'password',error: 'Invalid Password'});
+                return false;
             }
             else {
                 errorHandler({name: 'password',error: ""});
@@ -89,10 +88,14 @@ function Login() {
         }
         else {
             errorHandler({name: 'password',error: 'Password is empty'});
+            return false;
         }
 
-        (formValue.error.email === "" && formValue.error.password === "") && navigate('/view');
+        return true;
+    };
 
+    const handleSubmit = () => {
+        validateData() && navigate('/view');
     };
 
     return(
