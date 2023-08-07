@@ -74,11 +74,11 @@ function TextFields({type,label,variant,placeholder,width,autocomplete,value,nam
                              placeholder={placeholder}
                              fullWidth={true}
                              value={value}
-                             helperText={helperText}
                              name={name}
+                             helperText={helperText}
                              autoComplete={autocomplete}
-
                              required={required}
+
                 onChange={(e) => {
                     onChange(e);
                 }}

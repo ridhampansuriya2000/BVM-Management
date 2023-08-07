@@ -17,8 +17,8 @@ function Login() {
 
     const [formValue, setFormValue] = useState({
         values: {
-            email: '',
-            password: '',
+            email: "",
+            password: "",
         },
         touched: {},
         error: "",
@@ -27,51 +27,72 @@ function Login() {
     const stateHandler = (event) => {
 
         let { name, value } = event.target;
-        console.log(`${name}`,value);
 
-        setFormValue({
-            ...formValue,
+        setFormValue((prevstate) => ({
+            ...prevstate,
             values: {
-                ...formValue.values,
+                ...prevstate.values,
                 [name]: value,
             },
-            touched:{
-                ...formValue.touched,
+            touched: {
+                ...prevstate.touched,
                 [name]: true,
             },
             error: {
-                ...formValue.error,
+                ...prevstate.error,
                 [name]: "",
             },
-        });
+        }));
 
     };
 
     const errorHandler = ({name,error}) => {
 
-        setFormValue({
-            ...formValue,
-            touched:{
-                ...formValue.touched,
+        setFormValue((prevstate) => ({
+            ...prevstate,
+            touched: {
+                ...prevstate.touched,
                 [name]: false,
             },
             error: {
-                ...formValue.error,
+                ...prevstate.error,
                 [name]: error,
             },
-        });
+        }));
 
     };
 
     const handleSubmit = () => {
 
+        const validEmail = "^[a-z0-9]+@[a-z]+\\.[a-z]{2,3}$";
+        const validPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+
         if(formValue.touched.email){
-            errorHandler({name: 'email',error: 'Email is touched'});
+            if(!formValue.values.email.match(validEmail)){
+                errorHandler({name: 'email',error: 'Invalid Email'});
+            }
+            else {
+                errorHandler({name: 'email',error: ""});
+            }
+        }
+        else{
+            errorHandler({name: 'email',error: 'Email is empty'});
         }
 
         if(formValue.touched.password){
-            errorHandler({name: 'password',error: 'Password is touched'});
+            if(!formValue.values.password.match(validPassword)){
+                errorHandler({name: 'password',error: 'Invalid Password'});
+            }
+            else {
+                errorHandler({name: 'password',error: ""});
+            }
         }
+        else {
+            errorHandler({name: 'password',error: 'Password is empty'});
+        }
+
+        (formValue.error.email === "" && formValue.error.password === "") && navigate('/view');
+
     };
 
     return(
