@@ -51,25 +51,19 @@
 
 {/* media query */}
 @media only screen and (max-width: 900px){
-
     .banner{
         display: none;
     }
-
 }
 
 @media only screen and (max-width: 600px){
-
     .loginwrapper{
         padding: 40px;
     }
-
 }
 
 @media only screen and (max-width: 425px){
-
     .loginwrapper{
         padding: 40px 20px;
     }
-
 }
