@@ -39,14 +39,38 @@ function Login() {
                 ...formValue.touched,
                 [name]: true,
             },
-            error: "",
+            error: {
+                ...formValue.error,
+                [name]: "",
+            },
+        });
+
+    };
+
+    const errorHandler = ({name,error}) => {
+
+        setFormValue({
+            ...formValue,
+            touched:{
+                ...formValue.touched,
+                [name]: false,
+            },
+            error: {
+                ...formValue.error,
+                [name]: error,
+            },
         });
 
     };
 
     const handleSubmit = () => {
+
         if(formValue.touched.email){
-            setFormValue({...formValue,error: "Error is touched"});
+            errorHandler({name: 'email',error: 'Email is touched'});
+        }
+
+        if(formValue.touched.password){
+            errorHandler({name: 'password',error: 'Password is touched'});
         }
     };
 
@@ -83,7 +107,7 @@ function Login() {
                                         name={'email'}
                                         autocomplete={'off'}
                                         value={formValue.values.email}
-                                        helperText={formValue.error}
+                                        helperText={formValue.error.email}
                                         onChange={stateHandler}
                                     />
                                 </Grid>
@@ -97,6 +121,7 @@ function Login() {
                                         name={'password'}
                                         autocomplete={'off'}
                                         value={formValue.values.password}
+                                        helperText={formValue.error.password}
                                         onChange={stateHandler}
                                     />
                                 </Grid>
