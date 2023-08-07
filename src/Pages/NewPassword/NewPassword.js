@@ -16,16 +16,14 @@ function NewPassword() {
         errors: {},
     });
 
-    const validPass = (event) => {
-        let { name, value } = event.target;
-        console.log(name,value)
-        const validPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
 
+    const stateHendler = (event) => {
+        const { name, value } = event.target;
+        console.log(name , value)
         setFormValue((prevState) => ({
             ...prevState,
             values: {
                 ...prevState.values,
-                ...prevState.values[name], 
                 [name]: value,
             },
             touched: {
@@ -34,51 +32,88 @@ function NewPassword() {
             },
             errors: {
                 ...prevState.errors,
-                [name]: value.match(validPassword)
-                    ? ""
-                    : "Invalid password",
+                [name]: "",
             },
         }));
+    };
+
+
+    const errorHendler = ({ name, error }) => {
+
+        // const validPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+
+        setFormValue((prevState) => ({
+            ...prevState,
+
+            touched: {
+                ...prevState.touched,
+                [name]: false,
+            },
+            errors: {
+                ...prevState.errors,
+                [name]: error
+            },
+        }));
+
+    };
+
+    const validateForm = () => {
+        const validPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        const { password, confirmPassword } = formValue.values;
+
+        
+        if (password !== confirmPassword) {
+            setFormValue((prevState) => ({
+                ...prevState,
+                errors: {
+                    ...prevState.errors,
+                    confirmPassword: "Passwords do not match",
+                },
+            }));
+            return false;
+        } else if (!validPasswordRegex.test(password)) {
+            setFormValue((prevState) => ({
+                ...prevState,
+                errors: {
+                    ...prevState.errors,
+                    password: "Password must meet the required criteria",
+                },
+            }));
+            return false;
+        }
+
        
-    };
-
-    const confirmPass = (event) => {
-        let { name, value } = event.target;
-
         setFormValue((prevState) => ({
             ...prevState,
-            values: {
-                ...prevState.values,
-                [name]: value,
-            },
-            touched: {
-                ...prevState.touched,
-                [name]: true,
-            },
-            errors: {
-                ...prevState.errors,
-                [name]: value === formValue.values.password
-                    ? ""
-                    : "Passwords do not match",
-            },
+            errors: {},
         }));
+
+        return true;
     };
+
 
     const areAllFieldsFilled = () => {
         const { password, confirmPassword } = formValue.values;
         return password.trim() !== "" && confirmPassword.trim() !== "";
     };
 
-    const hendlepass = () => {
-        console.log(formValue.values);
-        setFormValue({
-            values: {
-                password: "",
-                confirmPassword: ""
-            },
-            touched: {},
-            errors: {},
-        });
+    const hendleSubmit = () => {
+        if (validateForm()) {
+
+            console.log("isValidate")
+            console.log(formValue.values);
+        }
+
+       
+        // setFormValue({
+        //     values: {
+        //         password: "",
+        //         confirmPassword: ""
+        //     },
+        //     touched: {},
+        //     errors: {},
+        // });
     };
 
     return (
@@ -106,14 +141,14 @@ function NewPassword() {
                             </Typography>
                             <Box sx={{ mt: "20px", }}>
                                 <Typography>Password*</Typography>
-                                <TextField type={'password'} name={'password'} value={formValue.values.password} onChange={validPass} />
+                                <TextField type={'password'} name={'password'} value={formValue.values.password} onChange={stateHendler} helperText={setFormValue.errors} />
                             </Box>
                             <Box sx={{ mt: "20px", }}>
                                 <Typography>Confirm password*</Typography>
-                                <TextField type={'password'} name={'confirmPassword'} value={formValue.values.confirmPassword} onChange={confirmPass} />
+                                <TextField type={'password'} name={'confirmPassword'} value={formValue.values.confirmPassword} onChange={stateHendler} helperText={setFormValue.errors} />
                             </Box>
                             <Box sx={{ mt: "20px", }}>
-                                <Muibutton yz={{ height: "47px" }} text={"Reset password"} onClick={hendlepass} disabled={!areAllFieldsFilled()} />
+                                <Muibutton yz={{ height: "47px" }} text={"Reset password"} onClick={hendleSubmit} disabled={!areAllFieldsFilled()} />
                                 {/* {!areAllFieldsFilled() && ""} */}
                                 <Muibutton
                                     variant="contained"
