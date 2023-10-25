@@ -10,7 +10,6 @@ import NewPassword from "./Pages/NewPassword/NewPassword";
 
 //css
 import './App.css';
-
 function App(){
     return (
         <>
