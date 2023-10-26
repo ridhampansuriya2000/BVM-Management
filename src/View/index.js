@@ -9,7 +9,7 @@ function View() {
 
   const validateData = (getdata) => {
     setdata(getdata);
-
+    
     return {
       isValidate: true,
       invalidMessage: "",
