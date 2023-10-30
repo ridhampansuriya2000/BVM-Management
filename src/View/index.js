@@ -15,7 +15,7 @@ function View() {
       invalidMessage: "",
     };
   };
-
+  
   return (
     <>
       <Container sx={{ mt: 5 }}>
